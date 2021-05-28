@@ -34,7 +34,7 @@ public class Program {
 	
 	public static int scanAndGetMinMark(Scanner scanner) {
 		int min = 9;
-		int current = 0;
+		int current;
 		for (int i = 0; i < COUNT_OF_MARKS; ++i) {
 			if (!scanner.hasNextInt()) {
 				System.err.println("Illegal Argument");

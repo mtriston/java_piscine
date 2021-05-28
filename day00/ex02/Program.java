@@ -38,7 +38,7 @@ public class Program {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		int requests = 0;
-		int n = 0;
+		int n;
 
 		if (!scanner.hasNextInt()) {
 			System.err.println("Illegal Argument");
