@@ -32,6 +32,10 @@ public class Program {
 	public static void main(String[] args) {
 		
 		Scanner scanner = new Scanner(System.in);
+		if (!scanner.hasNextInt()) {
+			System.err.println("Illegal Argument");
+			System.exit(-1);
+		}
 		int n = scanner.nextInt();
 		if (!isValid(n)) {
 			System.err.println("Illegal Argument");
@@ -39,5 +43,6 @@ public class Program {
 		} else {
 			printIsPrime(n);
 		}
+		scanner.close();
 	}
 }
