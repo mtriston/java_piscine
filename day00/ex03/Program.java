@@ -15,13 +15,25 @@ public class Program {
 	public static boolean isValidMark(int n) {
 		return n >= MIN_MARK && n <= MAX_MARK;
 	}
+
+	public static long pow(long base, long exponent) {
+		long result = 1;
+		for (int i = 0; i < exponent; ++i) {
+			result *= base;
+		}
+		return result;
+	}
 	
 	public static long addToStore(long store, int n) {
 		return store * 10 + n;
 	}
+
+	public static int getFromStore(long store, int size, int index) {
+		return (int)(store / pow(10, size - index)) % 10;
+	}
 	
 	public static int scanAndGetMinMark(Scanner scanner) {
-		int min = 0;
+		int min = 9;
 		int current = 0;
 		for (int i = 0; i < COUNT_OF_MARKS; ++i) {
 			if (!scanner.hasNextInt()) {
@@ -41,25 +53,32 @@ public class Program {
 
 	public static void printResult(long store, int count) {
 		for (int i = 1; i <= count; ++i) {
-			System.out.printf("Week %d\n", i);
+			System.out.printf("Week %d ", i);
+			int mark = getFromStore(store, count, i);
+			for (int j = 0; j < mark; ++j) {
+				System.out.print("=");
+			}
+			System.out.println(">");
 		}
 	}
 
 	public static void main(String[] args) {
-		int count = 1;
+		int countOfWeek = 0;
 		long store = 0;
 		Scanner scanner = new Scanner(System.in);
-		String numOfWeek = scanner.nextLine();
+		String weekString = scanner.nextLine();
 
-		while (!numOfWeek.equals(STOP_WORD)) {
-			if (!isValidWeek(numOfWeek, count)) {
+		while (!weekString.equals(STOP_WORD)) {
+			++countOfWeek;
+			if (!isValidWeek(weekString, countOfWeek)) {
 				System.err.println("Illegal Week Argument");
 				System.exit(-1);
+			} else if (countOfWeek > MAX_WEEKS) {
+				break;
 			}
 			store = addToStore(store, scanAndGetMinMark(scanner));
-			numOfWeek = scanner.nextLine();
-			count++;
+			weekString = scanner.nextLine();
 		}
-		printResult(store, count);
+		printResult(store, countOfWeek);
 	}
 }
