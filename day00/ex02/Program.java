@@ -36,16 +36,27 @@ public class Program {
 	}
 
 	public static void main(String[] args) {
-		
 		Scanner scanner = new Scanner(System.in);
-		int n = scanner.nextInt();
 		int requests = 0;
+		int n = 0;
+
+		if (!scanner.hasNextInt()) {
+			System.err.println("Illegal Argument");
+			System.exit(-1);
+		}
+		n = scanner.nextInt();
+
 		while (n != STOP_NUMBER) {
 			if (isPrime(getSumDigits(n))) {
 				++requests;
 			}
+			if (!scanner.hasNextInt()) {
+				System.err.println("Illegal Argument");
+				System.exit(-1);
+			}
 			n = scanner.nextInt();
 		}
 		System.out.printf("Count of coffee-request - %d\n", requests);
+		scanner.close();
 	}
 }
