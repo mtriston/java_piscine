@@ -46,6 +46,6 @@ public class Transaction {
         System.out.print("Sender: ");
         sender.print();
         System.out.printf("Transfer category: %s\n", transferCategory);
-        System.out.printf("Transfer category: %d\n", transferAmount);
+        System.out.printf("Transfer amount: %d\n", transferAmount);
     }
 }
