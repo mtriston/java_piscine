@@ -13,7 +13,9 @@ public class Program {
         transactionsList.addTransaction(new Transaction(user, user1, 7));
         transactionsList.addTransaction(new Transaction(user, user1, 8));
         transactionsList.addTransaction(new Transaction(user, user1, 9));
-        transactionsList.addTransaction(new Transaction(user, user1, 10));
+        Transaction transaction = new Transaction(user, user1, 10);
+        transactionsList.addTransaction(transaction);
+        transactionsList.removeTransactionById(transaction.getId());
         list.print();
     }
 }
