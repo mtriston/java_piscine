@@ -35,9 +35,13 @@ public class Program {
 			while (fileReader.ready()) {
 
 				String line = fileReader.readLine();
-				String []words = line.replaceAll("[^A-za-z ]", "").split("\\s+");
+				String []words = line.replaceAll("[^A-za-z ]", " ").split("\\s+");
 
 				for (String word : words) {
+
+					if (word.equals("")) {
+						continue;
+					}
 
 					dictionary.add(word);
 
