@@ -7,7 +7,7 @@ public class Program {
 	public static volatile int sumByThreads = 0;
 	public static void main(String[] args) {
 
-		int []array;
+		int array[];
 		int threadsCount = 0;
 		int arraySize = 0;
 		int span;
@@ -27,12 +27,16 @@ public class Program {
 		}
 
 		try {
-			threadsCount = Integer.parseInt(args[0].substring(12));
-			arraySize = Integer.parseInt(args[1].substring(15));
+			arraySize = Integer.parseInt(args[0].substring(12));
+			threadsCount = Integer.parseInt(args[1].substring(15));
 		} catch (NumberFormatException e) {
-			System.err.println(e.getMessage());
+			System.err.println("Invalid value of arguments!");
 			System.err.println("Example: java Program --arraySize=13 --threadsCount=3");
-			e.printStackTrace();
+			System.exit(-1);
+		}
+
+		if (threadsCount <= 0 || arraySize <= 0) {
+			System.err.println("Invalid value of arguments!");
 			System.exit(-1);
 		}
 
@@ -44,7 +48,6 @@ public class Program {
 		for (int element : array) {
 			sum += element;
 		}
-		System.out.printf("Sum: %d\n", sum);
 
 		List<Thread> threads = new ArrayList<Thread>();
 
@@ -60,9 +63,9 @@ public class Program {
 				System.err.println(e.getMessage());
 				e.printStackTrace();
 			}
-			
 		}
 
+		System.out.printf("Sum: %d\n", sum);
 		System.out.printf("Sum by threads: %d\n", sumByThreads);
 	}
 }

@@ -24,8 +24,7 @@ public class Counter implements Runnable {
 		for (int i = start; i < end; ++i) {
 			sum += array[i];
 		}
-		System.out.printf("Thread %d: from %d to %d sum is %d\n",
-			index, start, end, sum);
+		System.out.printf("Thread %d: from %d to %d sum is %d\n", index, start, end, sum);
 		Program.sumByThreads += sum;
 	}
 	
