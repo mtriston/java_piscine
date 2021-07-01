@@ -4,7 +4,7 @@ public class Program {
 	public static void main(String[] args) {
 
 		if (args.length != 1) {
-			System.err.println("Invalid count of arguments!");
+			System.err.println("Invalid count of arguments! Expected '--count=N'");
 			System.exit(-1);
 		}
 
@@ -12,6 +12,12 @@ public class Program {
 			count = Integer.parseInt(args[0].substring(8));
 		} catch (Exception e) {
 			System.err.println("Invalid format of argument! Expected '--count=N'");
+			System.exit(-1);
+		}
+
+		if (count <= 0) {
+			System.err.println("Expected positive N");
+			System.exit(-1);
 		}
 
 		Thread eggThread = new Thread(new VoiceRunnable("Egg", count));

@@ -13,7 +13,7 @@ public class VoiceRunnable implements Runnable {
 		for (int i = 0; i < count; ++i) {
 			System.out.println(name);
 			try {
-				Thread.sleep(100);
+				Thread.sleep(5);
 			} catch (InterruptedException e) {
 				return;
 			}
