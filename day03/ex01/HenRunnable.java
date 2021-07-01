@@ -10,7 +10,7 @@ public class HenRunnable implements Runnable {
 	@Override
 	public synchronized void run() {
 		for (int i = 0; i < count; ++i) {
-			pattern.pringHen();
+			pattern.printHen();
 		}
 	}
 }

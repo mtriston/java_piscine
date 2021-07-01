@@ -19,7 +19,7 @@ public class Pattern {
 		notify();
 	}
 
-	public synchronized void pringHen() {
+	public synchronized void printHen() {
 		while (flag) {
 			try {
 				wait();
