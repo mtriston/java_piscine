@@ -14,7 +14,7 @@ class CharConverter implements IStringConverter<Character> {
     @Override
     public Character convert(String s) {
         if (s.isEmpty())
-            return 0;
+            return ' ';
         return s.charAt(0);
     }
 }
@@ -51,7 +51,7 @@ public class Properties {
         this.wallsCount = wallsCount;
     }
 
-    public static Properties valueOf(String file, int size, int enemyCount, int wallsCount) throws IOException {
+    public static Properties newInstance(String file, int size, int enemyCount, int wallsCount) throws IOException {
         Properties properties = new Properties(size, enemyCount, wallsCount);
 
 
@@ -64,5 +64,57 @@ public class Properties {
                 .parse(tokens);
 
         return properties;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public int getEnemyCount() {
+        return enemyCount;
+    }
+
+    public int getWallsCount() {
+        return wallsCount;
+    }
+
+    public char getEnemyChar() {
+        return enemyChar;
+    }
+
+    public char getPlayerChar() {
+        return playerChar;
+    }
+
+    public char getWallChar() {
+        return wallChar;
+    }
+
+    public char getGoalChar() {
+        return goalChar;
+    }
+
+    public char getEmptyChar() {
+        return emptyChar;
+    }
+
+    public String getEnemyColor() {
+        return enemyColor;
+    }
+
+    public String getPlayerColor() {
+        return playerColor;
+    }
+
+    public String getWallColor() {
+        return wallColor;
+    }
+
+    public String getGoalColor() {
+        return goalColor;
+    }
+
+    public String getEmptyColor() {
+        return emptyColor;
     }
 }

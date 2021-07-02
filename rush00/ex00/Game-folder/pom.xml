@@ -20,11 +20,11 @@
             <artifactId>jcommander</artifactId>
             <version>1.81</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.diogonunes/JColor -->
+        <!-- https://mvnrepository.com/artifact/com.diogonunes/JCDP -->
         <dependency>
             <groupId>com.diogonunes</groupId>
-            <artifactId>JColor</artifactId>
-            <version>5.0.1</version>
+            <artifactId>JCDP</artifactId>
+            <version>4.0.2</version>
         </dependency>
     </dependencies>
 
