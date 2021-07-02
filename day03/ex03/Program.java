@@ -1,75 +1,54 @@
-import javafx.util.Pair;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
+
+    private static final String FILE_WITH_URLS = "files_urls.txt";
+
     public static void main(String[] args) {
 
-    }
-}
+        int threadsCount = 0;
+        List<Thread> threads;
+        UrlHolder urlHolder;
 
-class Downloader implements Runnable {
-    private final UrlHolder urlHolder;
-
-    public Downloader(UrlHolder urlHolder) {
-        this.urlHolder = urlHolder;
-    }
-
-    @Override
-    public void run() {
-        Pair<Integer, URL> pair = null;
-        while (true) {
-            pair = urlHolder.getUrl();
-            if (pair == null)
-                break;
-            try (InputStream inputStream = pair.getValue().openStream()) {
-                Files.copy(inputStream, new File(pair.getValue().getFile()).toPath());
-            } catch (IOException e) {
+        if (args.length != 1 || args[0].substring(0, 15).compareToIgnoreCase("--threadsCount=") != 0) {
+            System.err.println("Invalid argument!");
+            System.err.println("Example: java Program --threadsCount=3");
+            System.exit(-1);
         }
-    }
-}
 
-class UrlHolder {
-    private List<Pair<Integer, URL> > urls;
-
-    UrlHolder() {
-        urls = new LinkedList<>();
-    }
-
-    synchronized  Pair<Integer, URL> getUrl() {
-        Pair<Integer, URL> pair = null;
-        if (!urls.isEmpty()) {
-            pair = urls.get(0);
-            urls.remove(0);
+        try {
+            threadsCount = Integer.parseInt(args[0].substring(15));
+            if (threadsCount <= 0)
+                throw new IllegalArgumentException();
+        } catch (Exception e) {
+            System.err.println("Invalid value of argument!");
+            System.err.println("Example: java Program --threadsCount=3");
+            System.exit(-1);
         }
-        return pair;
-    }
 
-    void parseUrls(String file) throws IOException, InvalidFormatUrlList {
-        int number;
-        URL url;
-        List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(file));
-        for (String line : lines) {
+        threads = new ArrayList<>();
+        urlHolder = new UrlHolder();
+
+        try {
+            urlHolder.parseUrls(FILE_WITH_URLS);
+        } catch (IOException | InvalidFormatUrlList e) {
+            System.err.printf("An error occurred while parsing the %s:\n", FILE_WITH_URLS);
+            System.err.println(e);
+        }
+
+        for (int i = 0; i < threadsCount; ++i) {
+            threads.add(new Thread(new Downloader(urlHolder, i + 1)));
+            threads.get(i).start();
+        }
+
+        for (Thread thread : threads) {
             try {
-                number = Integer.parseInt(line);
-                url = new URL(line.split(" ")[1]);
-            } catch (Exception e) {
-                throw new InvalidFormatUrlList("invalid line: " + line);
+                thread.join();
+            } catch (InterruptedException ignored) {
             }
-            urls.add(new Pair<>(number, url));
         }
-    }
-}
-
-class InvalidFormatUrlList extends Exception {
-    InvalidFormatUrlList(String message) {
-        super(message);
     }
 }
