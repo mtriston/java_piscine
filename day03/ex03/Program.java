@@ -34,7 +34,7 @@ public class Program {
 
         try {
             urlHolder.parseUrls(FILE_WITH_URLS);
-        } catch (IOException | InvalidFormatUrlList e) {
+        } catch (Exception e) {
             System.err.printf("An error occurred while parsing the %s:\n", FILE_WITH_URLS);
             System.err.println(e);
             System.err.println(e.getCause().getMessage());
