@@ -51,8 +51,8 @@ public class Properties {
         this.wallsCount = wallsCount;
     }
 
-    public static Properties newInstance(String file, int size, int enemyCount, int wallsCount) throws IOException {
-        Properties properties = new Properties(size, enemyCount, wallsCount);
+    public static Properties newInstance(String file, int enemiesCount, int wallsCount, int size) throws IOException {
+        Properties properties = new Properties(size, enemiesCount, wallsCount);
 
 
         List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(file));
