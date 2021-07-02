@@ -33,8 +33,7 @@ public class Downloader implements Runnable {
 
                 System.out.printf("Thread-%d finish download file number %d\n", id, pair.getKey());
             } catch (Exception e) {
-                System.err.printf("Thread-%d can't download file number %d\n", id, pair.getKey());
-                System.err.println(e);
+                System.err.printf("Thread-%d can't download file number %d: %s\n", id, pair.getKey(), e.getMessage());
             }
         }
     }
