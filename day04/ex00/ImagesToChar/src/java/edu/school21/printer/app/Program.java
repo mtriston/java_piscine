@@ -1,6 +1,6 @@
-package src.java.edu.school21.printer.app;
+package edu.school21.printer.app;
 
-import src.java.edu.school21.printer.logic.ImageConverter;
+import edu.school21.printer.logic.ImageConverter;
 
 import java.io.File;
 

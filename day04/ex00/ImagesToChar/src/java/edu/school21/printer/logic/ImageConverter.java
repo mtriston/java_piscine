@@ -1,4 +1,4 @@
-package src.java.edu.school21.printer.logic;
+package edu.school21.printer.logic;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
