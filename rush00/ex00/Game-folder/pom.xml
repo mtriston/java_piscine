@@ -11,6 +11,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <exec.mainClass>app.Program</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -29,6 +30,21 @@
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>app.Program</mainClass>
+                    <arguments>
+                        <argument>--enemiesCount=10</argument>
+                        <argument>--wallsCount=10</argument>
+                        <argument>--size=30</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
 </project>

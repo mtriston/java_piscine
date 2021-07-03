@@ -5,10 +5,11 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.JCommander;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 class CharConverter implements IStringConverter<Character> {
     @Override
@@ -51,18 +52,12 @@ public class Properties {
         this.wallsCount = wallsCount;
     }
 
-    public static Properties newInstance(String file, int enemiesCount, int wallsCount, int size) throws IOException {
+    public static Properties newInstance(String file, int enemiesCount, int wallsCount, int size) {
         Properties properties = new Properties(size, enemiesCount, wallsCount);
-
-
-        List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(file));
-        String[] tokens = lines.toArray(new String[lines.size()]);
-        JCommander
-                .newBuilder()
-                .addObject(properties)
-                .build()
-                .parse(tokens);
-
+        InputStream resource = Objects.requireNonNull(Properties.class.getResourceAsStream(file));
+        String[] tokens = new BufferedReader(new InputStreamReader(resource,
+                StandardCharsets.UTF_8)).lines().toArray(String[]::new);
+        JCommander.newBuilder().addObject(properties).build().parse(tokens);
         return properties;
     }
 
