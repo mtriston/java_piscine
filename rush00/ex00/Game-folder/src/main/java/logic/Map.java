@@ -3,35 +3,32 @@ package logic;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Map {
 
+    private static final String CLEAR_CONSOLE = "\033[H\033[2J";
     private final Properties props;
     private final char[][] map;
     private final Random random;
+    private final List<AUnit> units;
 
     public Map(Properties properties) {
         this.props = properties;
         map = new char[props.getSize()][props.getSize()];
         random = new Random();
+        units = new ArrayList<>();
     }
 
-    public void generateRandom() {
+    public List<AUnit> generateRandom() {
         int x, y;
+        Point goal;
+        AUnit player;
 
         clearMap();
-        map[randInt()][randInt()] = props.getPlayerChar();
-
-        while (true) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] == props.getEmptyChar()) {
-                map[x][y] = props.getGoalChar();
-                break;
-            }
-        }
-
         for (int i = 0; i < props.getWallsCount(); ++i) {
             x = randInt();
             y = randInt();
@@ -41,7 +38,25 @@ public class Map {
                 map[x][y] = props.getWallChar();
             }
         }
-
+        while (true) {
+            x = randInt();
+            y = randInt();
+            if (map[x][y] == props.getEmptyChar()) {
+                map[x][y] = props.getGoalChar();
+                goal = new Point(randInt(), randInt());
+                break;
+            }
+        }
+        while (true) {
+            x = randInt();
+            y = randInt();
+            if (map[x][y] == props.getEmptyChar()) {
+                map[x][y] =props.getPlayerChar();
+                player = new Player(x, y, this, goal);
+                units.add(player);
+                break;
+            }
+        }
         for (int i = 0; i < props.getEnemyCount(); ++i) {
             x = randInt();
             y = randInt();
@@ -49,11 +64,17 @@ public class Map {
                 --i;
             } else {
                 map[x][y] = props.getEnemyChar();
+                units.add(new Enemy(x, y, this, player));
             }
         }
+        return units;
     }
 
     public void print() {
+
+        System.out.print(CLEAR_CONSOLE);
+        System.out.flush();
+
         ColoredPrinter coloredPrinter = new ColoredPrinter();
 
         Ansi.BColor playerColor = Ansi.BColor.valueOf(props.getPlayerColor());
@@ -94,5 +115,35 @@ public class Map {
                 map[j][i] = empty;
             }
         }
+    }
+
+    public void moveUnit(Player unit, int newX, int newY) {
+        map[unit.location.x][unit.location.y] = props.getEmptyChar();
+        unit.location.x = newX;
+        unit.location.y = newY;
+        map[unit.location.x][unit.location.y] = props.getPlayerChar();
+    }
+
+    public void moveUnit(Enemy unit, int newX, int newY) {
+        map[unit.location.x][unit.location.y] = props.getEmptyChar();
+        unit.location.x = newX;
+        unit.location.y = newY;
+        map[unit.location.x][unit.location.y] = props.getEnemyChar();
+    }
+
+    public boolean isCanGo(int x, int y) {
+        return x >= 0 && x < map.length && y >= 0 && y < map.length && !isWall(x, y);
+    }
+
+    public boolean isEmpty(int x, int y) {
+        return map[x][y] == props.getEmptyChar();
+    }
+
+    public boolean isWall(int x, int y) {
+        return map[x][y] == props.getWallChar();
+    }
+
+    public boolean isUnit(int x, int y) {
+        return map[x][y] == props.getEnemyChar() || map[x][y] == props.getPlayerChar();
     }
 }
