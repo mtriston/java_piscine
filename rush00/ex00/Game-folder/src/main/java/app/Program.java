@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
+import logic.Game;
 import logic.Map;
 import logic.Properties;
 import java.io.IOException;
@@ -53,8 +54,7 @@ public class Program {
             System.exit(-1);
         }
 
-        Map map = new Map(properties);
-        map.generateRandom();
-        map.print();
+        Game game = new Game(properties);
+        game.run();
     }
 }
