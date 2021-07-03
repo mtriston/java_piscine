@@ -10,3 +10,18 @@ press keys for movement
 <li>RIGHT 6</li>
 <li>AUTO LOSE 9</li>
 </ul>
+
+<h1>Configuration</h1>
+
+<p>in 'application-production.properties'</p>
+
+enemy.char=X<br>
+player. char=o<br>
+wall. char=#<br>
+goal. char=O<br>
+empty.char=<br>
+enemy.color=RED<br>
+player. color=GREEN<br>
+wall. color=MAGENTA<br>
+goal. color=BLUE<br>
+empty.color=YELLOW<br>
