@@ -4,14 +4,18 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
 public class ImageConverter {
 
-    public static void printImage(File image, String white, String black) throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(image);
+    public static void printImage(String image, String white, String black) throws IOException {
+
+        InputStream in = Objects.requireNonNull(ImageConverter.class.getResourceAsStream(image));
+        BufferedImage bufferedImage = ImageIO.read(in);
 
         ColoredPrinter coloredPrinter = new ColoredPrinter();
 

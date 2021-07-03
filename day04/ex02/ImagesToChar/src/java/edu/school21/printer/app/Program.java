@@ -21,6 +21,9 @@ class Args {
 }
 
 public class Program {
+
+    public static String imagePath = "/resources/image.bmp";
+
     public static void main(String[] args) {
 
         System.out.println(System.getProperty("user.dir"));
@@ -35,8 +38,7 @@ public class Program {
         }
 
         try {
-            File imageFile = new File(System.getProperty("user.dir") + "/target/resources/image.bmp");
-            ImageConverter.printImage(imageFile, arguments.white, arguments.black);
+            ImageConverter.printImage(imagePath, arguments.white, arguments.black);
         } catch (Exception e) {
             System.err.println("Error! Can't print image.");
             System.err.println(e.getMessage());
