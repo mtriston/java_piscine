@@ -1,13 +1,13 @@
-package logic;
+package chase;
 
 import java.awt.Point;
 
 public abstract class AUnit {
 
-    protected final Point location;
-    protected final Map map;
+    public final Point location;
+    protected final IMap map;
 
-    public AUnit(int x, int y, Map map) {
+    public AUnit(int x, int y, IMap map) {
         location = new Point(x, y);
         this.map = map;
     }

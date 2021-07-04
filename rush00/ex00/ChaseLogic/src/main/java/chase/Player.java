@@ -1,4 +1,4 @@
-package logic;
+package chase;
 
 import java.awt.*;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ public class Player extends AUnit {
     private final Scanner scanner = new Scanner(System.in);
     private final Point goal;
 
-    public Player(int x, int y, Map map, Point goal) {
+    public Player(int x, int y, IMap map, Point goal) {
         super(x, y, map);
         this.goal = goal;
     }
@@ -22,7 +22,7 @@ public class Player extends AUnit {
     public Status makeStep() {
         if (!scanner.hasNextInt()) {
             scanner.next();
-            return Status.EGAIN;
+            return Status.AGAIN;
         }
         int command = scanner.nextInt();
         int newX = location.x;
@@ -43,10 +43,10 @@ public class Player extends AUnit {
             case (CLOSE):
                 return Status.LOST;
             default:
-                return Status.EGAIN;
+                return Status.AGAIN;
         }
         if (!map.isCanGo(newX, newY))
-            return Status.EGAIN;
+            return Status.AGAIN;
         if (map.isEmpty(newX, newY)) {
             map.moveUnit(this, newX, newY);
             return Status.CONTINUE;

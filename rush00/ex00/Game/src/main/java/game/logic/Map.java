@@ -1,5 +1,9 @@
-package logic;
+package game.logic;
 
+import chase.AUnit;
+import chase.Enemy;
+import chase.IMap;
+import chase.Player;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
@@ -8,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map {
+public class Map implements IMap {
 
     private static final String CLEAR_CONSOLE = "\033[H\033[2J";
     private final Properties props;
@@ -117,6 +121,7 @@ public class Map {
         }
     }
 
+    @Override
     public void moveUnit(Player unit, int newX, int newY) {
         map[unit.location.x][unit.location.y] = props.getEmptyChar();
         unit.location.x = newX;
@@ -124,6 +129,7 @@ public class Map {
         map[unit.location.x][unit.location.y] = props.getPlayerChar();
     }
 
+    @Override
     public void moveUnit(Enemy unit, int newX, int newY) {
         map[unit.location.x][unit.location.y] = props.getEmptyChar();
         unit.location.x = newX;

@@ -1,8 +1,8 @@
-package logic;
+package game.logic;
+
+import chase.*;
 
 import java.util.List;
-
-enum Status {CONTINUE, EGAIN, LOST, WIN}
 
 public class Game {
 
@@ -18,8 +18,8 @@ public class Game {
         List<AUnit> units = map.generateRandom();
         while (true) {
             for (AUnit unit : units) {
-                Status status = Status.EGAIN;
-                while (status == Status.EGAIN) {
+                Status status = Status.AGAIN;
+                while (status == Status.AGAIN) {
                     map.print();
                     status = unit.makeStep();
                     if (status == Status.WIN || status == Status.LOST) {

@@ -1,4 +1,4 @@
-package logic;
+package game.logic;
 
 import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.Parameter;

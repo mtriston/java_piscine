@@ -1,13 +1,11 @@
-package app;
+package game.app;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
-import logic.Game;
-import logic.Map;
-import logic.Properties;
-import java.io.IOException;
+import game.logic.Game;
+import game.logic.Properties;
 
 class  IllegalParametersException extends IllegalArgumentException {
 }
