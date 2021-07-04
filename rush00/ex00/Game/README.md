@@ -1,5 +1,10 @@
 <h1>build and run:</h1>
-mvn clean compile exec:java
+
+<h3>first you need to build ChaseLogic</h3>
+in <i>ChaseLogic</i> dir: <code>mvn clean install</code>
+
+<h3>then build the program in <i>Game</i> dir</h3>
+<code>mvn clean compile exec:java</code>
 
 <h1>usage:</h1>
 press keys for movement
@@ -13,8 +18,9 @@ press keys for movement
 
 <h1>Configuration</h1>
 
-<p>in 'application-production.properties'</p>
+<p>in <i>application-production.properties</i></p>
 
+<code>
 enemy.char=X<br>
 player. char=o<br>
 wall. char=#<br>
@@ -25,3 +31,4 @@ player. color=GREEN<br>
 wall. color=MAGENTA<br>
 goal. color=BLUE<br>
 empty.color=YELLOW<br>
+</code>
