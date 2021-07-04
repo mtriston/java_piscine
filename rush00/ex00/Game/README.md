@@ -20,7 +20,6 @@ press keys for movement
 
 <p>in <i>application-production.properties</i></p>
 
-<code>
 enemy.char=X<br>
 player. char=o<br>
 wall. char=#<br>
@@ -31,4 +30,3 @@ player. color=GREEN<br>
 wall. color=MAGENTA<br>
 goal. color=BLUE<br>
 empty.color=YELLOW<br>
-</code>
