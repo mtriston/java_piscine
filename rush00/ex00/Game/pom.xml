@@ -37,6 +37,20 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>game.app.Program</mainClass>
+                    <arguments>
+                        <argument>--enemiesCount=10</argument>
+                        <argument>--wallsCount=10</argument>
+                        <argument>--size=10</argument>
+                        <argument>--profile=dev</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
@@ -47,7 +61,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- ... -->
                     <archive>
                         <manifest>
                             <mainClass>game.app.Program</mainClass>
@@ -61,6 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

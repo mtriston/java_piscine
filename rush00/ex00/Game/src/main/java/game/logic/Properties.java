@@ -25,6 +25,7 @@ public class Properties {
     private final int size;
     private final int enemyCount;
     private final int wallsCount;
+    private final String profile;
     @Parameter(names = {"enemy.char"}, converter = CharConverter.class, required = true)
     private char enemyChar;
     @Parameter(names = {"player.char"}, converter = CharConverter.class, required = true)
@@ -46,14 +47,15 @@ public class Properties {
     @Parameter(names = {"empty.color"},required = true)
     private String emptyColor;
 
-    private Properties(int size, int enemyCount, int wallsCount) {
+    private Properties(int size, int enemyCount, int wallsCount, String profile) {
         this.size = size;
         this.enemyCount = enemyCount;
         this.wallsCount = wallsCount;
+        this.profile = profile;
     }
 
-    public static Properties newInstance(String file, int enemiesCount, int wallsCount, int size) {
-        Properties properties = new Properties(size, enemiesCount, wallsCount);
+    public static Properties newInstance(String file, int enemiesCount, int wallsCount, int size, String profile) {
+        Properties properties = new Properties(size, enemiesCount, wallsCount, profile);
         InputStream resource = Objects.requireNonNull(Properties.class.getResourceAsStream(file));
         String[] tokens = new BufferedReader(new InputStreamReader(resource,
                 StandardCharsets.UTF_8)).lines().toArray(String[]::new);
@@ -71,6 +73,10 @@ public class Properties {
 
     public int getWallsCount() {
         return wallsCount;
+    }
+
+    public String getProfile() {
+        return profile;
     }
 
     public char getEnemyChar() {

@@ -18,7 +18,7 @@ class Args {
     public int wallsCount;
     @Parameter(names = {"--size"}, required = true)
     public int size;
-    @Parameter(names = {"--profile"})
+    @Parameter(names = {"--profile"}, required = true)
     public String profile;
 }
 
@@ -46,7 +46,7 @@ public class Program {
         Properties properties = null;
         try {
             properties = Properties.newInstance(buildPropFileName(arg.profile),
-                            arg.enemiesCount, arg.wallsCount, arg.size);
+                            arg.enemiesCount, arg.wallsCount, arg.size, arg.profile);
         } catch (Exception e) {
             System.err.println("Invalid property file!");
             System.exit(-1);

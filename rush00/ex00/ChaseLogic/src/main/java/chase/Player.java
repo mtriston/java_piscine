@@ -47,7 +47,7 @@ public class Player extends AUnit {
             map.moveUnit(this, newX, newY);
             return Status.CONTINUE;
         }
-        if (map.isUnit(newX, newY))
+        if (map.isEnemy(newX, newY))
             return Status.LOSE;
         return Status.WIN;
     }

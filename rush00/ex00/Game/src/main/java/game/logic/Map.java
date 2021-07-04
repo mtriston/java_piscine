@@ -150,7 +150,17 @@ public class Map implements IMap {
     }
 
     public boolean isUnit(int x, int y) {
-        return map[x][y] == props.getEnemyChar() || map[x][y] == props.getPlayerChar();
+        return isEnemy(x, y) || isPlayer(x, y);
+    }
+
+    @Override
+    public boolean isEnemy(int x, int y) {
+        return map[x][y] == props.getEnemyChar();
+    }
+
+    @Override
+    public boolean isPlayer(int x, int y) {
+        return map[x][y] == props.getPlayerChar();
     }
 
     public int getSize(){

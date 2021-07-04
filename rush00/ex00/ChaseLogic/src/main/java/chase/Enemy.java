@@ -11,7 +11,7 @@ public class Enemy extends AUnit {
     public Status makeStep() {
         Direction newDir = LeeAlgorithm.BFS(this.map, this.location.x, this.location.y, player.location.x, this.player.location.y);
 
-        if (map.isUnit(this.location.x + newDir.getDx(), this.location.y + newDir.getDy()))
+        if (map.isPlayer(this.location.x + newDir.getDx(), this.location.y + newDir.getDy()))
             return Status.LOSE;
         if (map.isEmpty(this.location.x + newDir.getDx(), this.location.y + newDir.getDy())) {
             map.moveUnit(this, this.location.x + newDir.getDx(), this.location.y + newDir.getDy());
