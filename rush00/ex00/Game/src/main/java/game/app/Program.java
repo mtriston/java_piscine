@@ -53,6 +53,10 @@ public class Program {
         }
 
         Game game = new Game(properties);
-        game.run();
+        try {
+            game.run();
+        } catch (Exception e) {
+           System.err.println(e.getMessage());
+        }
     }
 }

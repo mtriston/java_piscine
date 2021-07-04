@@ -15,13 +15,12 @@ public class Map implements IMap {
     private final Properties props;
     private final char[][] map;
     private final Random random;
-    private final List<AUnit> units;
+    private List<AUnit> units;
 
     public Map(Properties properties) {
         this.props = properties;
         map = new char[props.getSize()][props.getSize()];
         random = new Random();
-        units = new ArrayList<>();
     }
 
     public List<AUnit> generateRandom() {
@@ -31,6 +30,7 @@ public class Map implements IMap {
             Point goal;
             AUnit player;
 
+            units = new ArrayList<>();
             clearMap();
             for (int i = 0; i < props.getWallsCount(); ++i) {
                 x = randInt();
