@@ -1,9 +1,6 @@
 <h1>build and run:</h1>
 
-<h3>first you need to build ChaseLogic</h3>
-in <i>ChaseLogic</i> dir: <code>mvn clean install</code>
-
-<h3>then build the program in <i>Game</i> dir</h3>
+<h3>in <i>Game</i> dir</h3>
 <code>mvn clean compile exec:java</code>
 
 <h1>usage:</h1>
