@@ -145,7 +145,7 @@ public class Map implements IMap {
     }
 
     public boolean isCanGo(int x, int y) {
-        return x >= 0 && x < map.length && y >= 0 && y < map.length && !isWall(x, y);
+        return x >= 0 && x < map.length && y >= 0 && y < map.length && !isWall(x, y) && !isUnit(x,y);
     }
 
     public boolean isEmpty(int x, int y) {
