@@ -9,7 +9,7 @@ public class Enemy extends AUnit {
 
     @Override
     public Status makeStep() {
-        Direction newDir = LeeAlgorithm.BFS(this.map, this.location.x, this.location.y, player.location.x, this.player.location.y);
+        Direction newDir = LeeAlgorithm.BFS(this.map, this.location.x, this.location.y, player.location.x, this.player.location.y, false);
 
         if (map.isPlayer(this.location.x + newDir.getDx(), this.location.y + newDir.getDy()))
             return Status.LOSE;

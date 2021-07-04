@@ -8,7 +8,8 @@ enum Direction {
     UP(0, -1),
     RIGHT(1, 0),
     DOWN(0, 1),
-    LEFT(-1, 0);
+    LEFT(-1, 0),
+    STAY(0, 0);
 
     private final int dx;
     private final int dy;
@@ -40,15 +41,7 @@ class Node {
 
 public class LeeAlgorithm {
 
-    private static final int row[] = {-1, 0, 0, 1};
-    private static final int col[] = {0, -1, 1, 0};
-
-    private static boolean isValid(int mat[][], boolean visited[][], int row, int col) {
-        return (row >= 0) && (row < mat.length) && (col >= 0) && (col < mat[0].length)
-                && mat[row][col] == 1 && !visited[row][col];
-    }
-
-    public static Direction BFS(IMap map, int i_start, int j_start, int x, int y) {
+    public static Direction BFS(IMap map, int i_start, int j_start, int x, int y, boolean isPlayer) {
 
         boolean[][] mat = mapToBoolArray(map);
 
@@ -62,29 +55,26 @@ public class LeeAlgorithm {
         while (!queue.isEmpty()) {
             Node node = queue.poll();
 
-            // Go breath-first into each direction
             for (Direction dir : Direction.values()) {
                 int newX = node.x + dir.getDx();
                 int newY = node.y + dir.getDy();
                 Direction newDir = node.initialDir == null ? dir : node.initialDir;
 
-                // Mouse found?
                 if (newX == x && newY == y) {
                     return newDir;
                 }
 
-                // Is there a path in the direction (= is it a free field in the labyrinth)?
-                // And has that field not yet been discovered?
                 if (newX < mat.length && newY < mat.length && newY >= 0 && newX >= 0) {
                     if (!mat[newY][newX] && !discovered[newY][newX]) {
-                        // "Discover" and enqueue that field
                         discovered[newY][newX] = true;
                         queue.add(new Node(newX, newY, newDir));
                     }
                 }
             }
         }
-        throw new IllegalStateException("No path found");
+        if (isPlayer)
+            throw new IllegalStateException("No path found");
+        return Direction.STAY;
     }
 
     private static boolean[][] mapToBoolArray(IMap map) {

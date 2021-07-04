@@ -5,7 +5,7 @@ import java.awt.Point;
 public abstract class AUnit {
 
     public final Point location;
-    protected final IMap map;
+    public final IMap map;
     public boolean isPlayer;
 
     public AUnit(int x, int y, IMap map, boolean isPlayer) {

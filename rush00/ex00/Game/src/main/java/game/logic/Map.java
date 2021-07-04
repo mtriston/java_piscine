@@ -1,9 +1,6 @@
 package game.logic;
 
-import chase.AUnit;
-import chase.Enemy;
-import chase.IMap;
-import chase.Player;
+import chase.*;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
@@ -71,6 +68,7 @@ public class Map implements IMap {
                 units.add(new Enemy(x, y, this, player, false));
             }
         }
+        LeeAlgorithm.BFS(player.map, player.location.x, player.location.y, goal.x, goal.y, true);
         return units;
     }
 
