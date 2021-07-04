@@ -7,4 +7,5 @@ public interface IMap {
     public boolean isEmpty(int x, int y);
     public boolean isWall(int x, int y);
     public boolean isUnit(int x, int y);
+    public int getSize();
 }

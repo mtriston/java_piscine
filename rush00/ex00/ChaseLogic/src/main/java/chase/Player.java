@@ -13,8 +13,8 @@ public class Player extends AUnit {
     private final Scanner scanner = new Scanner(System.in);
     private final Point goal;
 
-    public Player(int x, int y, IMap map, Point goal) {
-        super(x, y, map);
+    public Player(int x, int y, IMap map, Point goal, boolean isPlayer) {
+        super(x, y, map, isPlayer);
         this.goal = goal;
     }
 

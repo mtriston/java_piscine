@@ -56,7 +56,7 @@ public class Map implements IMap {
             y = randInt();
             if (map[x][y] == props.getEmptyChar()) {
                 map[x][y] =props.getPlayerChar();
-                player = new Player(x, y, this, goal);
+                player = new Player(x, y, this, goal, true);
                 units.add(player);
                 break;
             }
@@ -68,7 +68,7 @@ public class Map implements IMap {
                 --i;
             } else {
                 map[x][y] = props.getEnemyChar();
-                units.add(new Enemy(x, y, this, player));
+                units.add(new Enemy(x, y, this, player, false));
             }
         }
         return units;
@@ -151,5 +151,9 @@ public class Map implements IMap {
 
     public boolean isUnit(int x, int y) {
         return map[x][y] == props.getEnemyChar() || map[x][y] == props.getPlayerChar();
+    }
+
+    public int getSize(){
+        return props.getSize();
     }
 }

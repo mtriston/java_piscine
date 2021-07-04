@@ -6,10 +6,12 @@ public abstract class AUnit {
 
     public final Point location;
     protected final IMap map;
+    public boolean isPlayer;
 
-    public AUnit(int x, int y, IMap map) {
+    public AUnit(int x, int y, IMap map, boolean isPlayer) {
         location = new Point(x, y);
         this.map = map;
+        this.isPlayer = isPlayer;
     }
 
     Point getLocation() {
