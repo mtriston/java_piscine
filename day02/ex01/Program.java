@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -47,7 +46,6 @@ public class Program {
 					if (word.equals("")) {
 						continue;
 					}
-
 					dictionary.add(word);
 
 					if (wordsFrequency.containsKey(word)) {
