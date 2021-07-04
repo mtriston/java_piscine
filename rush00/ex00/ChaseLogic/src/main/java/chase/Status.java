@@ -1,3 +1,3 @@
 package chase;
 
-public enum Status {CONTINUE, AGAIN, LOST, WIN}
+public enum Status {CONTINUE, AGAIN, LOSE, WIN}

@@ -4,10 +4,10 @@ mvn clean compile exec:java
 <h1>usage:</h1>
 press keys for movement
 <ul>
-<li>UP 8</li>
-<li>DOWN 2</li>
-<li>LEFT 4</li>
-<li>RIGHT 6</li>
+<li>UP W</li>
+<li>DOWN S</li>
+<li>LEFT A</li>
+<li>RIGHT D</li>
 <li>AUTO LOSE 9</li>
 </ul>
 

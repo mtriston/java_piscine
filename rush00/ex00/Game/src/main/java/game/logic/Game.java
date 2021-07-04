@@ -22,7 +22,7 @@ public class Game {
                 while (status == Status.AGAIN) {
                     map.print();
                     status = unit.makeStep();
-                    if (status == Status.WIN || status == Status.LOST) {
+                    if (status == Status.WIN || status == Status.LOSE) {
                         System.out.printf("YOU %s!\n", status);
                         System.exit(0);
                     }
