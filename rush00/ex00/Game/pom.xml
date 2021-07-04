@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.school21.game</groupId>
-    <artifactId>Game</artifactId>
+    <artifactId>game</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -44,9 +44,9 @@
                     <mainClass>game.app.Program</mainClass>
                     <arguments>
                         <argument>--enemiesCount=10</argument>
-                        <argument>--wallsCount=10</argument>
-                        <argument>--size=20</argument>
-                        <argument>--profile=dev</argument>
+                        <argument>--wallsCount=50</argument>
+                        <argument>--size=15</argument>
+                        <argument>--profile=production</argument>
                     </arguments>
                 </configuration>
             </plugin>

@@ -71,12 +71,11 @@ public class Map implements IMap {
                 }
             }
             try {
-                LeeAlgorithm.BFS(this, player.location.x, player.location.y, goal.x, goal.y);
+                LeeAlgorithm.BFS(this, player.location.x, player.location.y, goal.x, goal.y, true);
                 break;
             } catch (Exception ignored) {
             }
         }
-        LeeAlgorithm.BFS(player.map, player.location.x, player.location.y, goal.x, goal.y, true);
         return units;
     }
 

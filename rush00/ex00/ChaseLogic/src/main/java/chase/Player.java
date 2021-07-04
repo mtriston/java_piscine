@@ -56,7 +56,7 @@ public class Player extends AUnit {
     }
 
     private boolean isSurrounded() {
-        return map.isCanGo(location.x + 1, location.y) || map.isCanGo(location.x - 1, location.y) ||
-                map.isCanGo(location.x, location.y - 1) || map.isCanGo(location.x + 1, location.y + 1);
+        return !map.isCanGo(location.x + 1, location.y) && !map.isCanGo(location.x - 1, location.y) &&
+                !map.isCanGo(location.x, location.y - 1) && !map.isCanGo(location.x + 1, location.y + 1);
     }
 }
