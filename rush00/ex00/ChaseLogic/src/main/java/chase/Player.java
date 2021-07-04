@@ -20,9 +20,12 @@ public class Player extends AUnit {
 
     @Override
     public Status makeStep() {
+        if (isSurrounded())
+            return Status.LOSE;
         String command = scanner.next().toLowerCase();
         int newX = location.x;
         int newY = location.y;
+
         switch (command) {
             case (UP):
                 --newY;
@@ -50,5 +53,10 @@ public class Player extends AUnit {
         if (map.isEnemy(newX, newY))
             return Status.LOSE;
         return Status.WIN;
+    }
+
+    private boolean isSurrounded() {
+        return map.isCanGo(location.x + 1, location.y) || map.isCanGo(location.x - 1, location.y) ||
+                map.isCanGo(location.x, location.y - 1) || map.isCanGo(location.x + 1, location.y + 1);
     }
 }

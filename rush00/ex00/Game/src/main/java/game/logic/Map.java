@@ -25,47 +25,55 @@ public class Map implements IMap {
     }
 
     public List<AUnit> generateRandom() {
-        int x, y;
-        Point goal;
-        AUnit player;
 
-        clearMap();
-        for (int i = 0; i < props.getWallsCount(); ++i) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] != props.getEmptyChar()) {
-                --i;
-            } else {
-                map[x][y] = props.getWallChar();
-            }
-        }
         while (true) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] == props.getEmptyChar()) {
-                map[x][y] = props.getGoalChar();
-                goal = new Point(randInt(), randInt());
-                break;
+            int x, y;
+            Point goal;
+            AUnit player;
+
+            clearMap();
+            for (int i = 0; i < props.getWallsCount(); ++i) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] != props.getEmptyChar()) {
+                    --i;
+                } else {
+                    map[x][y] = props.getWallChar();
+                }
             }
-        }
-        while (true) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] == props.getEmptyChar()) {
-                map[x][y] =props.getPlayerChar();
-                player = new Player(x, y, this, goal, true);
-                units.add(player);
-                break;
+            while (true) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] == props.getEmptyChar()) {
+                    map[x][y] = props.getGoalChar();
+                    goal = new Point(randInt(), randInt());
+                    break;
+                }
             }
-        }
-        for (int i = 0; i < props.getEnemyCount(); ++i) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] != props.getEmptyChar()) {
-                --i;
-            } else {
-                map[x][y] = props.getEnemyChar();
-                units.add(new Enemy(x, y, this, player, false));
+            while (true) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] == props.getEmptyChar()) {
+                    map[x][y] =props.getPlayerChar();
+                    player = new Player(x, y, this, goal, true);
+                    units.add(player);
+                    break;
+                }
+            }
+            for (int i = 0; i < props.getEnemyCount(); ++i) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] != props.getEmptyChar()) {
+                    --i;
+                } else {
+                    map[x][y] = props.getEnemyChar();
+                    units.add(new Enemy(x, y, this, player, false));
+                }
+            }
+            try {
+                LeeAlgorithm.BFS(this, player.location.x, player.location.y, goal.x, goal.y);
+                break;
+            } catch (Exception ignored) {
             }
         }
         LeeAlgorithm.BFS(player.map, player.location.x, player.location.y, goal.x, goal.y, true);
@@ -74,8 +82,10 @@ public class Map implements IMap {
 
     public void print() {
 
-        System.out.print(CLEAR_CONSOLE);
-        System.out.flush();
+        if (!props.getProfile().equalsIgnoreCase("dev")) {
+            System.out.print(CLEAR_CONSOLE);
+            System.out.flush();
+        }
 
         ColoredPrinter coloredPrinter = new ColoredPrinter();
 
@@ -136,7 +146,7 @@ public class Map implements IMap {
     }
 
     public boolean isCanGo(int x, int y) {
-        return x >= 0 && x < map.length && y >= 0 && y < map.length && !isWall(x, y);
+        return x >= 0 && x < map.length && y >= 0 && y < map.length && !isWall(x, y) && !isUnit(x,y);
     }
 
     public boolean isEmpty(int x, int y) {
