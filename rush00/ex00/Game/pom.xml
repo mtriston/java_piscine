@@ -45,7 +45,7 @@
                     <arguments>
                         <argument>--enemiesCount=10</argument>
                         <argument>--wallsCount=10</argument>
-                        <argument>--size=10</argument>
+                        <argument>--size=20</argument>
                         <argument>--profile=dev</argument>
                     </arguments>
                 </configuration>

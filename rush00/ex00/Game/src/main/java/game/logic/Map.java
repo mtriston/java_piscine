@@ -76,8 +76,10 @@ public class Map implements IMap {
 
     public void print() {
 
-        System.out.print(CLEAR_CONSOLE);
-        System.out.flush();
+        if (!props.getProfile().equalsIgnoreCase("dev")) {
+            System.out.print(CLEAR_CONSOLE);
+            System.out.flush();
+        }
 
         ColoredPrinter coloredPrinter = new ColoredPrinter();
 
