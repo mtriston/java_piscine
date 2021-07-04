@@ -1,10 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Program {
+
+	private static final String DICTIONARY_FILE = "dictionary.txt";
 	
 	private static TreeSet<String> dictionary = new TreeSet<String>();
 
@@ -12,6 +16,7 @@ public class Program {
 		double numerator = 0;
 		double denominatorA = 0;
 		double denominatorB = 0;
+		double result;
 
 		for (String word : dictionary) {
 			Integer aValue = a.get(word);
@@ -22,8 +27,8 @@ public class Program {
 			denominatorA += aValue * aValue;
 			denominatorB += bValue * bValue;
 		}
-
-		return numerator / (Math.sqrt(denominatorA) * Math.sqrt(denominatorB));
+		result = numerator / (Math.sqrt(denominatorA) * Math.sqrt(denominatorB));
+		return Double.isNaN(result) ? 0 : result;
 	}
 
 	private static TreeMap<String, Integer> parseFile(String file) {
@@ -58,18 +63,31 @@ public class Program {
 		return wordsFrequency;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		
 		if (args.length != 2) {
 			System.err.println("There must be two arguments!");
 			System.exit(-1);
 		}
 
-		TreeMap<String, Integer> firstFileWords = parseFile(args[0]);
-		TreeMap<String, Integer> secondFileWords = parseFile(args[1]);
+		try (FileWriter writer = new FileWriter(DICTIONARY_FILE)) {
+			TreeMap<String, Integer> firstFileWords = parseFile(args[0]);
+			TreeMap<String, Integer> secondFileWords = parseFile(args[1]);
+	
+			double similarity = checkSimilarity(firstFileWords, secondFileWords);
+	
+			System.out.printf("Similarity = %.2f\n", similarity);
 
-		double similarity = checkSimilarity(firstFileWords, secondFileWords);
-
-		System.out.printf("Similarity = %.2f\n", similarity);
+			dictionary.forEach(word -> {
+				try {
+					writer.write(word + " ");
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+					System.exit(-1);
+				}
+			});
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }
