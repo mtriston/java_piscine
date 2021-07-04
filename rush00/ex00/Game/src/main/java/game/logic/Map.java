@@ -1,9 +1,6 @@
 package game.logic;
 
-import chase.AUnit;
-import chase.Enemy;
-import chase.IMap;
-import chase.Player;
+import chase.*;
 import com.diogonunes.jcdp.color.ColoredPrinter;
 import com.diogonunes.jcdp.color.api.Ansi;
 
@@ -28,47 +25,55 @@ public class Map implements IMap {
     }
 
     public List<AUnit> generateRandom() {
-        int x, y;
-        Point goal;
-        AUnit player;
 
-        clearMap();
-        for (int i = 0; i < props.getWallsCount(); ++i) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] != props.getEmptyChar()) {
-                --i;
-            } else {
-                map[x][y] = props.getWallChar();
-            }
-        }
         while (true) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] == props.getEmptyChar()) {
-                map[x][y] = props.getGoalChar();
-                goal = new Point(randInt(), randInt());
-                break;
+            int x, y;
+            Point goal;
+            AUnit player;
+
+            clearMap();
+            for (int i = 0; i < props.getWallsCount(); ++i) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] != props.getEmptyChar()) {
+                    --i;
+                } else {
+                    map[x][y] = props.getWallChar();
+                }
             }
-        }
-        while (true) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] == props.getEmptyChar()) {
-                map[x][y] =props.getPlayerChar();
-                player = new Player(x, y, this, goal, true);
-                units.add(player);
-                break;
+            while (true) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] == props.getEmptyChar()) {
+                    map[x][y] = props.getGoalChar();
+                    goal = new Point(randInt(), randInt());
+                    break;
+                }
             }
-        }
-        for (int i = 0; i < props.getEnemyCount(); ++i) {
-            x = randInt();
-            y = randInt();
-            if (map[x][y] != props.getEmptyChar()) {
-                --i;
-            } else {
-                map[x][y] = props.getEnemyChar();
-                units.add(new Enemy(x, y, this, player, false));
+            while (true) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] == props.getEmptyChar()) {
+                    map[x][y] =props.getPlayerChar();
+                    player = new Player(x, y, this, goal, true);
+                    units.add(player);
+                    break;
+                }
+            }
+            for (int i = 0; i < props.getEnemyCount(); ++i) {
+                x = randInt();
+                y = randInt();
+                if (map[x][y] != props.getEmptyChar()) {
+                    --i;
+                } else {
+                    map[x][y] = props.getEnemyChar();
+                    units.add(new Enemy(x, y, this, player, false));
+                }
+            }
+            try {
+                LeeAlgorithm.BFS(this, player.location.x, player.location.y, goal.x, goal.y);
+                break;
+            } catch (Exception ignored) {
             }
         }
         return units;
