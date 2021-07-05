@@ -26,6 +26,8 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
 
     @Override
     public void save(Message msg) throws SQLException {
+        if (msg.getAuthor() == null || msg.getRoom() == null)
+            throw new NotSavedSubEntityException("author and room must be non-null");
         Connection c = ds.getConnection();
         PreparedStatement stmt;
         if (msg.getId() == null) {
