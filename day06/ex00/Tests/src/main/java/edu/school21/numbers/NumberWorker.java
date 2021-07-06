@@ -22,6 +22,6 @@ public class NumberWorker {
             sum += number % 10;
             number /= 10;
         } while (number != 0);
-        return sum;
+        return Math.abs(sum);
     }
 }
