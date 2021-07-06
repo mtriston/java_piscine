@@ -73,9 +73,14 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         stmt.setObject(3, msg.getText());
         stmt.setObject(4, msg.getDateTime());
         stmt.setObject(5, msg.getId());
-        stmt.execute();
-        stmt.close();
-        c.close();
+        try {
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new NotSavedSubEntityException(e.getMessage());
+        } finally {
+            stmt.close();
+            c.close();
+        }
     }
 
     @Override

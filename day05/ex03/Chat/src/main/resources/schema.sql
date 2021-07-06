@@ -19,5 +19,5 @@ create table if not exists chat.messages (
     author int references chat.users(id),
     room int references chat.rooms(id),
     text text,
-    date TIMESTAMP
+    date TIMESTAMP default CURRENT_TIMESTAMP
 );

@@ -75,8 +75,10 @@ public class Program {
             message.setText("Bye");
             message.setDateTime(null);
             messagesRepository.update(message);
+            messageOptional = messagesRepository.findById(5L);
+            messageOptional.ifPresent(System.out::println);
+            message.setAuthor(new User(199L, null, null, null, null));
+            messagesRepository.update(message);
         }
-        messageOptional = messagesRepository.findById(5L);
-        messageOptional.ifPresent(System.out::println);
     }
 }
