@@ -16,7 +16,7 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
     private static final String INSERT_WITHOUT_ID;
 
     static {
-        INSERT_WITH_ID = "insert into chat.messages(id, author, room, text, date) values (?, ?, ?, ?, ?);";
+        INSERT_WITH_ID = "insert into chat.messages(id, author, room, text, date) values (?, ?, ?, ?, ?) RETURNING id;";
         INSERT_WITHOUT_ID = "insert into chat.messages(author, room, text, date) values (?, ?, ?, ?) RETURNING id;";
     }
 
@@ -32,17 +32,17 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository {
         PreparedStatement stmt;
         if (msg.getId() == null) {
             stmt = c.prepareStatement(INSERT_WITHOUT_ID);
-            stmt.setLong(1, msg.getAuthor().getId());
-            stmt.setLong(2, msg.getRoom().getId());
-            stmt.setString(3, msg.getText());
-            stmt.setTimestamp(4, msg.getDateTime());
+            stmt.setObject(1, msg.getAuthor().getId());
+            stmt.setObject(2, msg.getRoom().getId());
+            stmt.setObject(3, msg.getText());
+            stmt.setObject(4, msg.getDateTime());
         } else {
             stmt = c.prepareStatement(INSERT_WITH_ID);
-            stmt.setLong(1, msg.getId());
-            stmt.setLong(2, msg.getAuthor().getId());
-            stmt.setLong(3, msg.getRoom().getId());
-            stmt.setString(4, msg.getText());
-            stmt.setTimestamp(5, msg.getDateTime());
+            stmt.setObject(1, msg.getId());
+            stmt.setObject(2, msg.getAuthor().getId());
+            stmt.setObject(3, msg.getRoom().getId());
+            stmt.setObject(4, msg.getText());
+            stmt.setObject(5, msg.getDateTime());
         }
         try {
             stmt.execute();
