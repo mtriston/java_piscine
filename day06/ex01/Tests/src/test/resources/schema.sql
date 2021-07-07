@@ -1,7 +1,7 @@
-DROP TABLE if EXISTS public.products CASCADE;
+DROP TABLE if EXISTS products CASCADE;
 
-CREATE TABLE if NOT EXISTS public.products (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
+CREATE TABLE if NOT EXISTS products (
+    id INTEGER IDENTITY PRIMARY KEY,
+    name VARCHAR(30),
     price NUMERIC(10, 2)
 );
