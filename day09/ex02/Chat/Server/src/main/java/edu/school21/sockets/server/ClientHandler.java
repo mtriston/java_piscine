@@ -38,8 +38,8 @@ public class ClientHandler implements Runnable {
                 return;
             }
             List<Message> messages = server.getRoomHistory(room.getName());
-            for (int i = 0; i < messages.size(); ++i) {
-                if (i > 29)
+            for (int i = messages.size() - 1; i >= 0; --i) {
+                if (messages.size() - i > 29)
                     break;
                 sendMessage(messages.get(i).getText());
             }
@@ -50,7 +50,8 @@ public class ClientHandler implements Runnable {
                     server.removeClient(this);
                     break;
                 }
-                server.sendMessageToAllClients(username + ": " + message, this);
+                JSONMessage jsonMessage = gson.fromJson(message, JSONMessage.class);
+                server.sendMessageToAllClients(username + ": " + jsonMessage.message, this);
             }
 
         } catch (Exception e) {
