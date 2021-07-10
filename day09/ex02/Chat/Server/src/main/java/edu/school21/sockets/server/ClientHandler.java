@@ -1,6 +1,7 @@
 package edu.school21.sockets.server;
 
 import com.google.gson.Gson;
+import edu.school21.sockets.models.JSONMessage;
 import edu.school21.sockets.models.Message;
 import edu.school21.sockets.models.Room;
 
@@ -109,12 +110,13 @@ public class ClientHandler implements Runnable {
     }
 
     public void sendMessage(String msg) {
-        String roomName = room == null ? null : room.getName();
-        out.println(gson.toJson(new String[]{msg, username, roomName}));
+        String roomName = room == null ? "null" : room.getName();
+        out.println(gson.toJson(new JSONMessage(msg, username, roomName)));
     }
 
     private String getMessage() throws IOException {
-        return in.readLine();
+        String json = in.readLine();
+        return gson.fromJson(json, JSONMessage.class).message;
     }
 
     public String getUsername() {
